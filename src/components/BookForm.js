@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import BooksList from './BooksList';
 
 
-const BookForm = (props) => {   //{b, bookName, bookAge}
-  const [book, setBook] = useState(() => {
+const BookForm = (props) => {   
+  let [book, setBook] = useState(() => {
     //console.log('hit',props.book);
     return {
       name: props.book ? props.book.name : '',
@@ -13,19 +13,12 @@ const BookForm = (props) => {   //{b, bookName, bookAge}
     };
   });
 
-
-  // const [book, setBook] = useState({
-  //   name: props.book ? props.book.name : '',
-  //   age: props.book ? props.book.age : '',
-  // });
-
-  // React.useEffect(() => {
-  //   if (book != undefined) {
-  //     console.log(book);
-  //   } else {
-  //     //document.title = 'No threshold reached.';
-  //   }
-  // }, [book]);
+  React.useEffect(() => {
+    if (props.book != undefined) {
+      setBook(state => ({ ...state, name: props.book.name, age: props.book.age, id: props.book.id}));
+      //console.log(props.book, book.name);
+    }
+  }, [props.book]);
 
   const [errorMsg, setErrorMsg] = useState('');
   const { name, age } = book;
@@ -95,7 +88,7 @@ const BookForm = (props) => {   //{b, bookName, bookAge}
                   type="text"
                   name="name"
                   value={name}
-                  // {props ? this.props.bookName : ''}
+                  //{props.book ? props.book.name : ''}
                   placeholder="Enter name of user"
                   onChange={handleInputChange}
                 />
@@ -107,7 +100,7 @@ const BookForm = (props) => {   //{b, bookName, bookAge}
                   type="number"
                   name="age"
                   value={age}
-                  // value={props ? this.props.bookAge : ''}
+                  //{props.book ? props.book.age : ''}
                   placeholder="Enter age of user"
                   onChange={handleInputChange}
                 />
