@@ -2,20 +2,25 @@ import React, { useContext } from 'react';
 import _ from 'lodash';
 import Book from './Book';
 import BooksContext from '../context/BooksContext';
+import { BookContextType, BookInterface } from '../@types/book';
 
 const BooksList = () => {
-  const { books, setBooks } = useContext(BooksContext);
+  const { books, setBooks } = useContext(BooksContext) as BookContextType;
 
-  const handleRemoveBook = (id: any) => {
-    setBooks(books.filter((book: any) => book.id !== id));
+  const handleRemoveBook = (id: string) => {
+    setBooks(books.filter((book: BookInterface) => book.id !== id));
   };
+
+  const BookProp = {
+    handleRemoveBook: handleRemoveBook
+  }
 
   return (
     <React.Fragment>
       <div className="book-list">
         {!_.isEmpty(books) ? (
-          books.map((book: any) => (
-            <Book key={book.id} {...book} handleRemoveBook={handleRemoveBook} />
+          books.map((book: BookInterface) => (
+            <Book key={book.id} {...book} {...BookProp} />
           ))
         ) : (
           <p className="message">No users available. Please add some users.</p>

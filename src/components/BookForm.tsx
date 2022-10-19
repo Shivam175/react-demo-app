@@ -2,10 +2,20 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import BooksList from './BooksList';
+import PropTypes from 'prop-types';
 
 
-const BookForm = (props : any) => {   
-  let [book, setBook] = useState(() => {
+type BookFormProps = {
+    book?: {
+      id: string, 
+      name: string, 
+      age: number
+    };
+    handleOnSubmit: any
+};
+
+const BookForm = (props: BookFormProps) => {   
+  let [book, setBooks] = useState(() => {
     //console.log('hit',props.book);
     return {
       name: props.book ? props.book.name : '',
@@ -15,15 +25,18 @@ const BookForm = (props : any) => {
 
   React.useEffect(() => {
     if (props.book != undefined) {
-      setBook(state => ({ ...state, name: props.book.name, age: props.book.age, id: props.book.id}));
-      //console.log(props.book, book.name);
+      setBooks(state => ({ ...state, 
+        name: props.book ? props.book.name : '',
+        age: props.book ? props.book.age : '',
+        id: props.book ? props.book.id : ''}));
+      // console.log(props, props.book, book.name);
     }
   }, [props.book]);
 
   const [errorMsg, setErrorMsg] = useState('');
   const { name, age } = book;
 
-  const handleOnSubmit = (event: any) => {
+  const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const values = [name, age];
     let errorMsg = '';
@@ -46,12 +59,12 @@ const BookForm = (props : any) => {
     setErrorMsg(errorMsg);
   };
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     switch (name) {
       case 'age':
         if (value === '' || parseInt(value) === +value) {
-          setBook((prevState) => ({
+          setBooks((prevState) => ({
             ...prevState,
             [name]: value
           }));
@@ -59,14 +72,14 @@ const BookForm = (props : any) => {
         break;
       case 'price':
         if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
-          setBook((prevState) => ({
+          setBooks((prevState) => ({
             ...prevState,
             [name]: value
           }));
         }
         break;
       default:
-        setBook((prevState) => ({
+        setBooks((prevState) => ({
           ...prevState,
           [name]: value
         }));
@@ -115,5 +128,16 @@ const BookForm = (props : any) => {
     </div>
   );
 };
+
+// BookForm.propTypes = {
+//   props: PropTypes.oneOfType([
+//     PropTypes.object,
+//     PropTypes.shape({
+//       id: PropTypes.string,
+//       name: PropTypes.string,
+//       age: PropTypes.number
+//     })
+//   ])
+// }
 
 export default BookForm;

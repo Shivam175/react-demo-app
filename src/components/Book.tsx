@@ -2,12 +2,14 @@ import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
-const Book = ({
-  id,
-  name,
-  age,
-  handleRemoveBook
-} : any) => {
+interface BookProp {
+  id: string, 
+  name: string, 
+  age: number,
+  handleRemoveBook: any
+}
+
+const Book = ({ id, name, age, handleRemoveBook }: BookProp) => {
   const history = useHistory();
 
   return (

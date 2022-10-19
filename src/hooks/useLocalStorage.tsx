@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { BookInterface } from '../@types/book';
 
-const useLocalStorage = (key: any, initialValue: any) => {
+const useLocalStorage = (key: string, initialValue: BookInterface[]) => {
   const [value, setValue] = useState(() => {
     try {
       const localValue = window.localStorage.getItem(key);
