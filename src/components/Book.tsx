@@ -7,7 +7,7 @@ const Book = ({
   name,
   age,
   handleRemoveBook
-}) => {
+} : any) => {
   const history = useHistory();
 
   return (

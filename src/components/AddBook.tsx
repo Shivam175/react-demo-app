@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
+import * as React from "react";
 import BookForm from './BookForm';
 import BooksContext from '../context/BooksContext';
 
-const AddBook = ({ history }) => {
+const AddBook = ({ history} : any) => {
   const { books, setBooks } = useContext(BooksContext);
 
-  const handleOnSubmit = (book) => {
+  const handleOnSubmit = (book : any) => {
     setBooks([book, ...books]);
     history.push('/');
   };

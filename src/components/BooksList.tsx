@@ -6,15 +6,15 @@ import BooksContext from '../context/BooksContext';
 const BooksList = () => {
   const { books, setBooks } = useContext(BooksContext);
 
-  const handleRemoveBook = (id) => {
-    setBooks(books.filter((book) => book.id !== id));
+  const handleRemoveBook = (id: any) => {
+    setBooks(books.filter((book: any) => book.id !== id));
   };
 
   return (
     <React.Fragment>
       <div className="book-list">
         {!_.isEmpty(books) ? (
-          books.map((book) => (
+          books.map((book: any) => (
             <Book key={book.id} {...book} handleRemoveBook={handleRemoveBook} />
           ))
         ) : (

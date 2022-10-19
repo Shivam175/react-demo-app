@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import BooksList from './BooksList';
 
 
-const BookForm = (props) => {   
+const BookForm = (props : any) => {   
   let [book, setBook] = useState(() => {
     //console.log('hit',props.book);
     return {
@@ -23,7 +23,7 @@ const BookForm = (props) => {
   const [errorMsg, setErrorMsg] = useState('');
   const { name, age } = book;
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = (event: any) => {
     event.preventDefault();
     const values = [name, age];
     let errorMsg = '';
@@ -46,7 +46,7 @@ const BookForm = (props) => {
     setErrorMsg(errorMsg);
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
     switch (name) {
       case 'age':
