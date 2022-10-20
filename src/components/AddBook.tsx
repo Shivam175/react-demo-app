@@ -12,7 +12,7 @@ const AddBook: React.FunctionComponent<AddBookComponentProps> = ({ history }) =>
 
   const handleOnSubmit = (book : BookInterface) => {
     setBooks([book, ...books]);
-    history.push('/');
+    // history.push('/');
   };
 
   const BookFormProps = {

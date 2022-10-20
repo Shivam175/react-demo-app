@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import BooksList from './BooksList';
 import PropTypes from 'prop-types';
 
-
 type BookFormProps = {
     book?: {
       id: string, 
@@ -53,6 +52,10 @@ const BookForm = (props: BookFormProps) => {
         age,
       };
       props.handleOnSubmit(book);
+      setBooks(prevState => ({ ...prevState,
+        name: '',
+        age: ''
+      }));
     } else {
       errorMsg = 'Please fill out all the fields.';
     }
