@@ -1,12 +1,10 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { BookInterface } from '../@types/book';
 
-interface BookProp {
-  id: string, 
-  name: string, 
-  age: number,
-  handleRemoveBook: any
+interface BookProp extends BookInterface{
+  handleRemoveBook: (id: string) => void;
 }
 
 const Book = ({ id, name, age, handleRemoveBook }: BookProp) => {

@@ -5,11 +5,9 @@ import BooksContext from '../context/BooksContext';
 import { BookContextType, BookInterface } from '../@types/book';
 
 const BooksList = () => {
-  const { books, setBooks } = useContext(BooksContext) as BookContextType;
+  const { books, deleteBook } = useContext(BooksContext) as BookContextType;
 
-  const handleRemoveBook = (id: string) => {
-    setBooks(books.filter((book: BookInterface) => book.id !== id));
-  };
+  const handleRemoveBook = (id: string) => deleteBook(id);
 
   const BookProp = {
     handleRemoveBook: handleRemoveBook

@@ -8,12 +8,9 @@ import { RouteComponentProps } from 'react-router-dom';
 interface AddBookComponentProps extends RouteComponentProps<any> {}
 
 const AddBook: React.FunctionComponent<AddBookComponentProps> = ({ history }) => {
-  const { books, setBooks } = useContext(BooksContext) as BookContextType;
+  const { addBook } = useContext(BooksContext) as BookContextType;
 
-  const handleOnSubmit = (book : BookInterface) => {
-    setBooks([book, ...books]);
-    // history.push('/');
-  };
+  const handleOnSubmit = (book : BookInterface) => addBook(book);
 
   const BookFormProps = {
     handleOnSubmit: handleOnSubmit

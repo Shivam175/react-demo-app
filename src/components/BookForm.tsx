@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import BooksList from './BooksList';
-import PropTypes from 'prop-types';
+import { BookInterface } from '../@types/book';
 
 type BookFormProps = {
-    book?: {
-      id: string, 
-      name: string, 
-      age: number
-    };
-    handleOnSubmit: any
+    book?: BookInterface,
+    handleOnSubmit: (book: BookInterface) => void
 };
 
 const BookForm = (props: BookFormProps) => {   
@@ -33,7 +29,7 @@ const BookForm = (props: BookFormProps) => {
   }, [props.book]);
 
   const [errorMsg, setErrorMsg] = useState('');
-  const { name, age } = book;
+  let { name, age } = book;
 
   const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,7 +42,8 @@ const BookForm = (props: BookFormProps) => {
     });
 
     if (allFieldsFilled) {
-      const book = {
+      age = Number(age);
+      const book : BookInterface = {
         id: uuidv4(),
         name,
         age,
@@ -131,16 +128,5 @@ const BookForm = (props: BookFormProps) => {
     </div>
   );
 };
-
-// BookForm.propTypes = {
-//   props: PropTypes.oneOfType([
-//     PropTypes.object,
-//     PropTypes.shape({
-//       id: PropTypes.string,
-//       name: PropTypes.string,
-//       age: PropTypes.number
-//     })
-//   ])
-// }
 
 export default BookForm;
