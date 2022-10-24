@@ -19,13 +19,10 @@ export const BooksProvider: React.FC<Props> = ({ children }) => {
     };
 
     const updateBook = (book: BookInterface, id: string) => {
-      let index = 0;
-      books.forEach((bookElement: BookInterface, idx: number) => {
-        if (bookElement["id"].toString() === id.toString()) index = idx;
-      });
+      let index = books.findIndex((bookElement: BookInterface) => bookElement['id'] === id);
       // console.log(books, index, book.id);
-      books[index].name = book.name;
-      books[index].age = book.age;
+      books[index] = book;
+      books[index].id = id;
       setBooks([...books]);
     };
     return <BooksContext.Provider value={{ books, addBook, deleteBook, updateBook }}>{children}</BooksContext.Provider>;
