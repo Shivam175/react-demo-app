@@ -9,23 +9,27 @@ const BooksContext = React.createContext<BookContextType | {}>({});
 
 export const BooksProvider: React.FC<Props> = ({ children }) => {
     const [books, setBooks] = useLocalStorage('books', []);
+    const [modalState, setModalState] = useLocalStorage('modalState', false);
+    const [deleteID, setDeleteID] = useLocalStorage('deleteID', '');
 
     const addBook = (book: BookInterface) => {
       setBooks([book, ...books]);
     };
 
     const deleteBook = (id: string) => {
-      setBooks(books.filter((book: BookInterface) => book.id !== id));
+      setBooks(books.filter((book: BookInterface) => book.id !== deleteID));
     };
 
-    const updateBook = (book: BookInterface, id: string) => {
-      let index = books.findIndex((bookElement: BookInterface) => bookElement['id'] === id);
-      // console.log(books, index, book.id);
-      books[index] = book;
-      books[index].id = id;
+    const updateBook = (book: BookInterface) => {
+      books[books.findIndex((bookElement: BookInterface) => bookElement['id'] === book.id)] = book;
+      // console.log(books, book);
       setBooks([...books]);
     };
-    return <BooksContext.Provider value={{ books, addBook, deleteBook, updateBook }}>{children}</BooksContext.Provider>;
+
+    const toggle = () => setModalState(!modalState);
+    const saveDeleteID = (id: string) => setDeleteID(id);
+    return <BooksContext.Provider value={{ books, addBook, deleteBook, updateBook, modalState, toggle, deleteID, saveDeleteID }}>
+    {children}</BooksContext.Provider>;
 };
 
 export default BooksContext;

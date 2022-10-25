@@ -6,8 +6,11 @@ export interface BookInterface {
 
 export type BookContextType = {
     books: BookInterface[];
+    modalState: boolean;
+    deleteID: string;
     addBook: (book: BookInterface) => void;
-    updateBook: (book: BookInterface, id: string) => void;
+    updateBook: (book: BookInterface) => void;
     deleteBook: (id: string) => void;
-    // setBooks: (books: BookInterface[]) => void;
+    toggle: () => void;
+    saveDeleteID: (id: string) => void;
 };

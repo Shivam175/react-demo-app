@@ -13,7 +13,7 @@ const EditBook: React.FunctionComponent<EditBookComponentProps> = ({ history }) 
   const bookToEdit = books.find((book: BookInterface) => book.id === id);
 
   const handleOnSubmitParent = (book: BookInterface) => {
-    updateBook(book, id);
+    updateBook(book);
     history.push('/');
   };
 

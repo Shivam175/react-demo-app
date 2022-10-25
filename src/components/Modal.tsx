@@ -5,11 +5,12 @@ import { Button } from 'react-bootstrap';
 
 interface ModalProps{
   show: boolean;
+  delID: string;
   close: () => void;
   deleteUser: () => void;
 }
 
-const Modal = ({ show, close, deleteUser } : ModalProps) => {
+const Modal = ({ show, delID, close, deleteUser } : ModalProps) => {
   return (
     <>
       {ReactDOM.createPortal(

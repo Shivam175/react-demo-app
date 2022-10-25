@@ -44,7 +44,7 @@ const BookForm = (props: BookFormProps) => {
     if (allFieldsFilled) {
       age = Number(age);
       const book : BookInterface = {
-        id: uuidv4(),
+        id: props.book ? props.book.id : uuidv4(), 
         name,
         age,
       };
