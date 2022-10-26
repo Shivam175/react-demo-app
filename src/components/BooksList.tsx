@@ -1,13 +1,21 @@
 import React, { useContext } from 'react';
 import _ from 'lodash';
-import Book from './Book';
-import BooksContext from '../context/BooksContext';
+import Book from './book';
+import BooksContext from '../context/booksContext';
 import { BookContextType, BookInterface } from '../@types/book';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { deleteBook2 } from '../actions/appAction';
+import { State } from '../reducers/appReducer';
 
 const BooksList = () => {
-  const { books, deleteBook } = useContext(BooksContext) as BookContextType;
+  // const { books, deleteBook } = useContext(BooksContext) as BookContextType;
 
-  const handleRemoveBook = (id: string) => deleteBook(id);
+  const books = useSelector((state: State) => state.books);
+  const dispatch = useDispatch();
+  const handleRemoveBook = (id: string) => {
+    dispatch(deleteBook2());
+    // deleteBook(id);
+  };
 
   const BookProp = {
     handleRemoveBook: handleRemoveBook

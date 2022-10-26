@@ -2,8 +2,11 @@ import React, { useState, useContext } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { BookInterface, BookContextType } from '../@types/book';
-import Modal from './Modal';
-import BooksContext from '../context/BooksContext';
+import Modal from './modal';
+import BooksContext from '../context/booksContext';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { saveDeleteID2, toggle2 } from '../actions/appAction';
+import { State } from '../reducers/appReducer';
 
 interface BookProp extends BookInterface{
   handleRemoveBook: (id: string) => void;
@@ -11,14 +14,26 @@ interface BookProp extends BookInterface{
 
 const Book = ({ id, name, age, handleRemoveBook }: BookProp) => {
   const history = useHistory();
-  const { modalState, toggle, saveDeleteID } = useContext(BooksContext) as BookContextType;
+  // const { modalState, toggle, saveDeleteID } = useContext(BooksContext) as BookContextType;
+  
+  const modalState = useSelector((state: State) => state.modalState);
+  const dispatch = useDispatch();
   const delUser = () => {
-    toggle(); 
+    dispatch(toggle2());
+    // toggle(); 
     handleRemoveBook(id);
   }
+
   const toggleLocal = () => {
-    saveDeleteID(id);
-    toggle();
+    let book = {
+      'id': id,
+      'name': name,
+      'age': age
+    }
+    dispatch(saveDeleteID2(book));
+    // saveDeleteID(id);
+    dispatch(toggle2());
+    // toggle();
   }
 
 
@@ -45,7 +60,7 @@ return (
             </Card>
           </div>
           <div>
-            <Modal show={modalState} delID={id} close={toggle} deleteUser={delUser}></Modal>
+            <Modal show={modalState} delID={id} close={() => dispatch(toggle2())} deleteUser={delUser}></Modal>
           </div>
        </>
   );

@@ -4,6 +4,19 @@ export interface BookInterface {
     age: number;
 }
 
+export interface AppState {
+    books: BookInterface[];
+    modalState: boolean;
+    deleteID: string;
+}
+
+export interface AppAction {
+    type: string;
+    payload: BookInterface;
+}
+  
+type DispatchType = (args: AppAction) => AppAction;
+
 export type BookContextType = {
     books: BookInterface[];
     modalState: boolean;

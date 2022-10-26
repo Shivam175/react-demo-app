@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Header from '../components/Header';
-import AddBook from '../components/AddBook';
-import EditBook from '../components/EditBook';
-import {BooksProvider} from '../context/BooksContext';
+import Header from '../components/header';
+import AddBook from '../components/addBook';
+import EditBook from '../components/editBook';
+import {BooksProvider} from '../context/booksContext';
+import { Provider } from "react-redux";
+import store from "../store";
+
 
 const AppRouter = () => {
 
@@ -13,13 +16,15 @@ const AppRouter = () => {
         <Header />
         <div className="main-content">
           <div className="container">
-            <BooksProvider>
-              <Switch>
-                <Route component={AddBook} path="/" exact={true} />
-                <Route component={EditBook} path="/edit/:id" />
-                <Route component={() => <Redirect to="/" />} />
-              </Switch>
-            </BooksProvider>
+            {/* <BooksProvider> */}
+              <Provider store={store}>
+                <Switch>
+                  <Route component={AddBook} path="/" exact={true} />
+                  <Route component={EditBook} path="/edit/:id" />
+                  <Route component={() => <Redirect to="/" />} />
+                </Switch>
+              </Provider>
+            {/* </BooksProvider> */}
           </div>
         </div>
       </div>

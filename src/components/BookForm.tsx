@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-import BooksList from './BooksList';
+import BooksList from './booksList';
 import { BookInterface } from '../@types/book';
 
 type BookFormProps = {

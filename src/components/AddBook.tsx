@@ -1,16 +1,25 @@
 import { useContext } from 'react';
 import * as React from "react";
-import BookForm from './BookForm';
-import BooksContext from '../context/BooksContext';
+import BookForm from './bookForm';
+import BooksContext from '../context/booksContext';
 import { BookContextType, BookInterface } from '../@types/book';
 import { RouteComponentProps } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { addBook2 } from '../actions/appAction';
 
 interface AddBookComponentProps extends RouteComponentProps<any> {}
 
 const AddBook: React.FunctionComponent<AddBookComponentProps> = ({ history }) => {
-  const { addBook } = useContext(BooksContext) as BookContextType;
+  const state = useSelector((state) => state);
+  // console.log("store", state);
+  const dispatch = useDispatch();
+  
+  // const { addBook } = useContext(BooksContext) as BookContextType;
 
-  const handleOnSubmit = (book : BookInterface) => addBook(book);
+  const handleOnSubmit = (book : BookInterface) => {
+    // addBook(book);
+    dispatch(addBook2(book));
+  };
 
   const BookFormProps = {
     handleOnSubmit: handleOnSubmit
