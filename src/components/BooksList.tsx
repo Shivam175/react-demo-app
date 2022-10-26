@@ -4,7 +4,7 @@ import Book from './book';
 import BooksContext from '../context/booksContext';
 import { BookContextType, BookInterface } from '../@types/book';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { deleteBook2 } from '../actions/appAction';
+import { deleteBook } from '../actions/appAction';
 import { State } from '../reducers/appReducer';
 
 const BooksList = () => {
@@ -13,7 +13,7 @@ const BooksList = () => {
   const books = useSelector((state: State) => state.books);
   const dispatch = useDispatch();
   const handleRemoveBook = (id: string) => {
-    dispatch(deleteBook2());
+    dispatch(deleteBook());
     // deleteBook(id);
   };
 

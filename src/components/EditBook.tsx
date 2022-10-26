@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import BooksContext from '../context/booksContext';
 import { BookContextType, BookInterface } from '../@types/book';
 import { RouteComponentProps } from 'react-router-dom';
-import { updateBook2 } from '../actions/appAction';
+import { updateBook } from '../actions/appAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../reducers/appReducer';
 
@@ -20,7 +20,7 @@ const EditBook: React.FunctionComponent<EditBookComponentProps> = ({ history }) 
 
   const handleOnSubmitParent = (book: BookInterface) => {
     // updateBook(book);
-    dispatch(updateBook2(book));
+    dispatch(updateBook(book));
     history.push('/');
   };
 

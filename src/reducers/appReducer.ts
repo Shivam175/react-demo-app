@@ -8,13 +8,7 @@ export type State = {
 };
 
 const initialState : State = {
-    books: [
-      {
-        id: '0879e868-012b-4e68-9b3a-875547b0a0de',
-        name: "Ben Stokes",
-        age: 32,
-      }
-    ],
+    books: [],
     modalState: false,
     deleteID: ''
 };

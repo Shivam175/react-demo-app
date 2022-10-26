@@ -1,20 +1,20 @@
 import { createStore, Store, applyMiddleware } from "redux";
-import BookReducer from "./reducers/appReducer";
-import { configureStore } from '@reduxjs/toolkit'
+import BookReducer, { State } from "./reducers/appReducer";
 import { AppState, AppAction, DispatchType } from "./@types/book";
 import thunk from "redux-thunk";
+import { throttle } from "lodash";
+import { loadState, saveState } from "./localStorage";
 
 
-const store: Store<AppState, AppAction> = createStore(BookReducer, applyMiddleware(thunk));
+const loadBooks = loadState();
+const persistedState : State = {
+    books: loadBooks,
+    modalState: false,
+    deleteID: ''
+};
+// console.log(persistedState);
+const store: Store<AppState, AppAction> = createStore(BookReducer, persistedState, applyMiddleware(thunk));
 
-// const store = configureStore({
-//     reducer: {
-//         Books: BookReducer,
-//         // comments: commentsReducer,
-//         // users: usersReducer,
-//     },
-// });
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
+store.subscribe(throttle(() => saveState(store.getState().books), 500));
 
 export default store;

@@ -5,7 +5,7 @@ import { BookInterface, BookContextType } from '../@types/book';
 import Modal from './modal';
 import BooksContext from '../context/booksContext';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { saveDeleteID2, toggle2 } from '../actions/appAction';
+import { saveDeleteID, toggle } from '../actions/appAction';
 import { State } from '../reducers/appReducer';
 
 interface BookProp extends BookInterface{
@@ -19,7 +19,7 @@ const Book = ({ id, name, age, handleRemoveBook }: BookProp) => {
   const modalState = useSelector((state: State) => state.modalState);
   const dispatch = useDispatch();
   const delUser = () => {
-    dispatch(toggle2());
+    dispatch(toggle());
     // toggle(); 
     handleRemoveBook(id);
   }
@@ -30,9 +30,9 @@ const Book = ({ id, name, age, handleRemoveBook }: BookProp) => {
       'name': name,
       'age': age
     }
-    dispatch(saveDeleteID2(book));
+    dispatch(saveDeleteID(book));
     // saveDeleteID(id);
-    dispatch(toggle2());
+    dispatch(toggle());
     // toggle();
   }
 
@@ -60,11 +60,10 @@ return (
             </Card>
           </div>
           <div>
-            <Modal show={modalState} delID={id} close={() => dispatch(toggle2())} deleteUser={delUser}></Modal>
+            <Modal show={modalState} delID={id} close={() => dispatch(toggle())} deleteUser={delUser}></Modal>
           </div>
        </>
   );
 };
-// bg-red-600 hover:bg-red-700
 
 export default Book;
