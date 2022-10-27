@@ -1,20 +1,23 @@
 import React, { useContext } from 'react';
 import _ from 'lodash';
 import Book from './book';
-import BooksContext from '../context/booksContext';
 import { BookContextType, BookInterface } from '../@types/book';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { deleteBook } from '../actions/appAction';
 import { State } from '../reducers/appReducer';
+import { useStoreActions, useStoreState } from '../store/hooks';
+import { useStoreRehydrated } from 'easy-peasy';
 
 const BooksList = () => {
-  // const { books, deleteBook } = useContext(BooksContext) as BookContextType;
+  const deleteBook = useStoreActions((actions) => actions.deleteBook);
 
-  const books = useSelector((state: State) => state.books);
-  const dispatch = useDispatch();
+  // const books = useSelector((state: State) => state.books);
+  // const dispatch = useDispatch();
+  const books = useStoreState((state) => state.books);
+  const isRehydrated = useStoreRehydrated();
   const handleRemoveBook = (id: string) => {
-    dispatch(deleteBook());
-    // deleteBook(id);
+    // dispatch(deleteBook());
+    deleteBook();
   };
 
   const BookProp = {
@@ -23,15 +26,23 @@ const BooksList = () => {
 
   return (
     <React.Fragment>
-      <div className="book-list">
-        {!_.isEmpty(books) ? (
-          books.map((book: BookInterface) => (
-            <Book key={book.id} {...book} {...BookProp} />
-          ))
-        ) : (
-          <p className="message">No users available. Please add some users.</p>
-        )}
-      </div>
+      <>
+        {
+          isRehydrated ?
+          <div className="book-list">
+            {!_.isEmpty(books) ? (
+              books.map((book: BookInterface) => (
+                <Book key={book.id} {...book} {...BookProp} />
+              ))
+            ) : (
+              <p className="message">No users available. Please add some users.</p>
+            )}
+          </div> :
+          <div className="row justify-content-md-center">
+            <p>Loading...</p>
+          </div>
+        }
+      </>
     </React.Fragment>
   );
 };

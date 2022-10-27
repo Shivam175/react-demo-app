@@ -5,7 +5,9 @@ import AddBook from '../components/addBook';
 import EditBook from '../components/editBook';
 import {BooksProvider} from '../context/booksContext';
 import { Provider } from "react-redux";
-import store from "../store";
+import store from "../store/index";
+import { StoreProvider } from 'easy-peasy';
+import storeRedux from '../store';
 
 
 const AppRouter = () => {
@@ -17,13 +19,15 @@ const AppRouter = () => {
         <div className="main-content">
           <div className="container">
             {/* <BooksProvider> */}
-              <Provider store={store}>
-                <Switch>
-                  <Route component={AddBook} path="/" exact={true} />
-                  <Route component={EditBook} path="/edit/:id" />
-                  <Route component={() => <Redirect to="/" />} />
-                </Switch>
-              </Provider>
+              {/* <Provider store={storeRedux}> */}
+                <StoreProvider store={store}>
+                  <Switch>
+                    <Route component={AddBook} path="/" exact={true} />
+                    <Route component={EditBook} path="/edit/:id" />
+                    <Route component={() => <Redirect to="/" />} />
+                  </Switch>
+                 </StoreProvider>
+              {/* </Provider> */}
             {/* </BooksProvider> */}
           </div>
         </div>

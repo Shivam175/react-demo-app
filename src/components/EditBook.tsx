@@ -1,26 +1,26 @@
 import React, { useContext } from 'react';
 import BookForm from './bookForm';
 import { useParams } from 'react-router-dom';
-import BooksContext from '../context/booksContext';
 import { BookContextType, BookInterface } from '../@types/book';
 import { RouteComponentProps } from 'react-router-dom';
 import { updateBook } from '../actions/appAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../reducers/appReducer';
+import { useStoreActions, useStoreState } from '../store/hooks';
 
 interface EditBookComponentProps extends RouteComponentProps<any> {}
 
 const EditBook: React.FunctionComponent<EditBookComponentProps> = ({ history }) => {
-  // const { books, updateBook } = useContext(BooksContext) as BookContextType;
-  
-  const books = useSelector((state: State) => state.books);
+  // const books = useSelector((state: State) => state.books);
+  const books = useStoreState((state) => state.books);
   const { id } = useParams();
   const bookToEdit = books.find((book: BookInterface) => book.id === id);
-  const dispatch = useDispatch();
+  const updateBook = useStoreActions((actions) => actions.updateBook);
+  // const dispatch = useDispatch();
 
   const handleOnSubmitParent = (book: BookInterface) => {
-    // updateBook(book);
-    dispatch(updateBook(book));
+    updateBook(book);
+    // dispatch(updateBook(book));
     history.push('/');
   };
 

@@ -3,10 +3,10 @@ import { Button, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { BookInterface, BookContextType } from '../@types/book';
 import Modal from './modal';
-import BooksContext from '../context/booksContext';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { saveDeleteID, toggle } from '../actions/appAction';
 import { State } from '../reducers/appReducer';
+import { useStoreActions, useStoreState } from '../store/hooks';
 
 interface BookProp extends BookInterface{
   handleRemoveBook: (id: string) => void;
@@ -14,26 +14,27 @@ interface BookProp extends BookInterface{
 
 const Book = ({ id, name, age, handleRemoveBook }: BookProp) => {
   const history = useHistory();
-  // const { modalState, toggle, saveDeleteID } = useContext(BooksContext) as BookContextType;
+  const saveDeleteID = useStoreActions((actions) => actions.saveDeleteID);
+  const toggle = useStoreActions((actions) => actions.toggle);
   
-  const modalState = useSelector((state: State) => state.modalState);
-  const dispatch = useDispatch();
+  const modalState = useStoreState((state: State) => state.modalState);
+  // const dispatch = useDispatch();
   const delUser = () => {
-    dispatch(toggle());
-    // toggle(); 
+    // dispatch(toggle());
+    toggle();
     handleRemoveBook(id);
   }
 
   const toggleLocal = () => {
-    let book = {
-      'id': id,
-      'name': name,
-      'age': age
-    }
-    dispatch(saveDeleteID(book));
-    // saveDeleteID(id);
-    dispatch(toggle());
-    // toggle();
+    // let book = {
+    //   'id': id,
+    //   'name': name,
+    //   'age': age
+    // }
+    // dispatch(saveDeleteID(book));
+    saveDeleteID(id);
+    // dispatch(toggle());
+    toggle();
   }
 
 
@@ -60,7 +61,7 @@ return (
             </Card>
           </div>
           <div>
-            <Modal show={modalState} delID={id} close={() => dispatch(toggle())} deleteUser={delUser}></Modal>
+            <Modal show={modalState} delID={id} close={() => toggle()} deleteUser={delUser}></Modal>
           </div>
        </>
   );
