@@ -10,8 +10,8 @@ const AppModel: AppModelInterface = {
   addBook: action((state, payload) => { state.books = [payload, ...state.books] }),
 
   updateBook: action((state, payload) => {
-    state.books[state.books.findIndex((bookElement: BookInterface) => bookElement['id'] === payload.id)]
-         = payload;
+    let idx = state.books.findIndex((bookElement: BookInterface) => bookElement['id'] === payload.id);
+    if(idx > -1) state.books[idx] = payload;
   }),
 
   saveDeleteID: action((state, payload) => { state.deleteID = payload }),

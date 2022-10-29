@@ -18,6 +18,7 @@ const AddBook: React.FunctionComponent<AddBookComponentProps> = ({ history }) =>
   const handleOnSubmit = (book : BookInterface) => {
     addBook(book);
     // dispatch(addBook(book));
+    // history.push('/');
   };
 
   const BookFormProps = {
