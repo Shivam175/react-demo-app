@@ -61,6 +61,22 @@ const BookForm = (props: BookFormProps) => {
     color: "secondary"
   }
 
+  window.onload = () => {
+    // console.info( "window-page reload");
+    if (props.book !== undefined) {
+      const book : BookInterface = {
+        id: 'null',
+        name: '',
+        age: 1,
+      };
+      setBooks(prevState => ({ ...prevState,
+        name: '',
+        age: ''
+      }));
+      props.handleOnSubmit(book);
+    }
+  };
+
   const handleOnSubmit = (object: formBook) => {
     const values = [object.name, object.age];
     let errorMsg = '';
@@ -175,7 +191,7 @@ const BookForm = (props: BookFormProps) => {
     if (book.name === '') {
         setTimeout(() => {
           myConfig.forEach((ele) => ele.fieldProps.inputProps.value = initValUndefined);
-        }, 5);
+        }, 2);
         myConfig.forEach((ele) => ele.fieldProps.inputProps.value = '');
         // console.log(myConfig[0].fieldProps.inputProps.value, book.name);
     }
