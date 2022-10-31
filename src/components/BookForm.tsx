@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-import BooksList from './booksList';
+import BooksList from './BooksList';
 import { BookInterface } from '../@types/book';
 import { ReactForm } from 'react-forms';
 import * as Yup from 'yup';
@@ -46,16 +46,17 @@ const BookForm = (props: BookFormProps) => {
 			type : 'text',
 			valueKey : 'name',
       fieldProps : { label: 'Enter name of user', fullWidth: true, required: true,
-       inputProps: { value: initValUndefined } }
+       inputProps: {  } }
     },
+    // value: initValUndefined
     {
 			type : 'text',
 			valueKey : 'age',
       fieldProps : { label: 'Enter age of user', fullWidth: true, required: true,
-       inputProps: { value: initValUndefined } },
+       inputProps: {  } },
 		} 
   ];
-  let myInitialValues = { name : '', age : ''};
+  let myInitialValues = { name : props.book ? props.book.name : '', age : props.book ? props.book.age : ''};
   
   const submitButtonPropVar: ButtonProps = {
     color: "secondary"
@@ -140,7 +141,7 @@ const BookForm = (props: BookFormProps) => {
       <ReactForm
         formId="Input Form"
         config={myConfig}
-        initialValues={myInitialValues}
+        initialValues={myInitialValues} //ternary
         validationSchema={formValidation}
         onSubmit={(values: formBook) => {
           // console.log(values);
@@ -179,20 +180,25 @@ const BookForm = (props: BookFormProps) => {
         id: props.book ? props.book.id : ''}));
 
         const {name: tempName, age: tempAge} = props.book;
-        myConfig[0].fieldProps.inputProps.value = tempName;
-        myConfig[1].fieldProps.inputProps.value = tempAge.toString();
-        myInitialValues.name = tempName;
-        myInitialValues.age = tempAge.toString();
-        // console.log(myConfig[0].fieldProps.inputProps.value, props.book.name);
+        // myConfig[0].fieldProps.inputProps.value = tempName;
+        // myConfig[1].fieldProps.inputProps.value = tempAge.toString();
+        setTimeout(() => {
+          // myInitialValues.name = tempName;
+          // myInitialValues.age = tempAge.toString();
+          // myConfig.forEach((ele) => ele.fieldProps.inputProps.value = initValUndefined);
+        }, 2);
+        // myInitialValues.name = tempName;
+        // myInitialValues.age = tempAge.toString();
+        console.log(myInitialValues.name, props.book.name);
     }
   }, [props.book]);
 
   React.useEffect(() => {
     if (book.name === '') {
         setTimeout(() => {
-          myConfig.forEach((ele) => ele.fieldProps.inputProps.value = initValUndefined);
+          // myConfig.forEach((ele) => ele.fieldProps.inputProps.value = initValUndefined);
         }, 2);
-        myConfig.forEach((ele) => ele.fieldProps.inputProps.value = '');
+        // myConfig.forEach((ele) => ele.fieldProps.inputProps.value = '');
         // console.log(myConfig[0].fieldProps.inputProps.value, book.name);
     }
   }, [book]);

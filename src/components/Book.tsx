@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { BookInterface, BookContextType } from '../@types/book';
-import Modal from './modal';
+import Modal from './Modal';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { saveDeleteID, toggle } from '../actions/appAction';
 import { State } from '../reducers/appReducer';

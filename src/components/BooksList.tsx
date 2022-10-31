@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import _ from 'lodash';
-import Book from './book';
+import Book from './Book';
 import { BookContextType, BookInterface } from '../@types/book';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { deleteBook } from '../actions/appAction';

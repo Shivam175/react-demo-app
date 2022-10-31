@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Header from '../components/header';
-import AddBook from '../components/addBook';
-import EditBook from '../components/editBook';
+import Header from '../components/Header';
+import AddBook from '../components/AddBook';
+import EditBook from '../components/EditBook';
 import {BooksProvider} from '../context/booksContext';
 import { Provider } from "react-redux";
 import store from "../store/index";
