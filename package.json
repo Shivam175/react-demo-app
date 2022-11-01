@@ -29,6 +29,7 @@
     "react-bootstrap": "1.5.2",
     "react-dom": "^16.12.0",
     "react-forms": "github:mithyalabs/react-forms",
+    "react-forms-lite": "github:mithya-team/react-forms-lite",
     "react-redux": "^8.0.4",
     "react-router-dom": "5.2.0",
     "react-scripts": "5.0.1",
