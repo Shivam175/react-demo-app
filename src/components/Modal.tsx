@@ -25,7 +25,7 @@ const Modal = ({ show, delID, close, deleteUser } : ModalProps) => {
                   </div>
                   <Button variant="primary"
                   className="bg-white text-gray-600 hover:bg-gray-300 hover:text-gray-900 font-semibold border border-gray-400 rounded shadow"
-                  onClick={() => close()}>
+                  onClick={close}>
                     Cancel
                   </Button>{' '}
                   <Button variant="danger" className="bg-red-600 hover:bg-red-700 font-semibold border border-gray-400 rounded shadow" 
